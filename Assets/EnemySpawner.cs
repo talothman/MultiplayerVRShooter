@@ -13,6 +13,9 @@ public class EnemySpawner : NetworkBehaviour {
 
     Vector3 beginningPos;
     int beginningNumEnemies;
+
+    public bool beginMovement = false;
+
     public override void OnStartServer()
     {
         beginningPos = transform.position;
@@ -48,14 +51,17 @@ public class EnemySpawner : NetworkBehaviour {
 
     private void Update()
     {
-        if(cycleTime > randomTimeToPass)
+        if (beginMovement)
         {
-            cycleTime = 0;
-            transform.position += (-Vector3.forward * 0.2f);
-            randomTimeToPass = Random.Range(0f, 3f);
-        }
+            if (cycleTime > randomTimeToPass)
+            {
+                cycleTime = 0;
+                transform.position += (-Vector3.forward * 0.2f);
+                randomTimeToPass = Random.Range(0f, 3f);
+            }
 
-        cycleTime += Time.deltaTime;
+            cycleTime += Time.deltaTime;
+        } 
     }
 
     public void CheckState()

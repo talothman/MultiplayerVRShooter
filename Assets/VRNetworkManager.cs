@@ -9,6 +9,8 @@ public class VRNetworkManager : NetworkManager{
     List<GameObject> listOfPlayerGOs;
     List<Transform> sPosition;
 
+    public EnemySpawner enemySpawner;
+
     private void Start()
     {
         networkStateContainer = GetComponent<NetworkStateContainer>();
@@ -42,6 +44,7 @@ public class VRNetworkManager : NetworkManager{
             foreach (GameObject go in listOfPlayerGOs)
             {
                 go.GetComponent<ShootingPlayer>().RpcUpdateToStartState();
+                enemySpawner.beginMovement = true;
             }
         }
     }
